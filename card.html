@@ -10,7 +10,7 @@
 	<h2 class="cardTitle">完善我的卡片</h2>
 	<div class="commentOuter">
 		<textarea name="comment" id="commentText" rows="10" placeholder="用一两句话形容下自己吧"></textarea>
-		<span class="count">最大字数60字，已输入<span id="entered"></span>字</span>
+		<span class="count">最大字数60字，已输入<span id="entered">0</span>字</span>
 	</div>
 	<div class="buttonStyle" id="confirm">确定</div>
 	<div id="shade"></div>
@@ -54,12 +54,20 @@
 			var that = this;
 			this.bind();
 			document.getElementById('commentText').addEventListener('input', function () {
-				console.log(1);
-				that.content = this.value;
-				that.length = this.value.length;
-				if(that.length > 60){
-					this.value = this.value.substr(0,60);
-				}
+				that.content = (function (obj) {
+					if (obj.value.length > 60) {
+						obj.value = obj.value.substr(0,60);
+						return obj.value.substr(0,60);
+					}
+					return obj.value;
+				})(document.getElementById('commentText'));
+				that.length = (function (obj) {
+					if (obj.value.length > 60) {
+						return 60;
+					}
+					return obj.value.length;
+				})(document.getElementById('commentText'));
+				document.getElementById('entered').innerHTML = that.length;
 			},false);
 		};
 
