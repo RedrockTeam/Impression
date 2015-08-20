@@ -26,7 +26,7 @@
                 <div class="tools">
                     <div class="tool toolDel iconfont">&#xe609;</div>
                     <div class="tool toolDown iconfont">&#xe606;<span>{$vo.praise}</span></div>
-                    <div class="tool toolUp iconfont">&#xe603;<span>{$vo.down}</span></div>
+                    <div class="tool toolFocus iconfont">&#xe603;<span>{$vo.down}</span></div>
                 </div>
             </li>
         </volist>
@@ -64,38 +64,51 @@
         $('.toolUp').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
-            $.ajax({
-                url: postURL,
-                type: 'post',
-                data: {
-                    action: 1,
-                    impression_id: id
-                },
-                success: function () {
-                    that.css('color','#ff8d27'); 
-                },
-                error: function () {
-                    alert('发生错误');
-                }
-            });
+            if ($(this).parents('.tools').find('.toolFocus').length == 0) {
+                $.ajax({
+                    url: postURL,
+                    type: 'post',
+                    data: {
+                        action: 1,
+                        impression_id: id
+                    },
+                    success: function () {
+                        that.unbind('click');
+                        that.addClass('toolFocus');
+                        that.removeClass('toolUp');
+                    },
+                    error: function () {
+                        alert('发生错误');
+                    }
+                });
+            } else {
+                alert('您已经踩过了，不能点赞！');
+            }
+            
         });
         $('.toolDown').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
-            $.ajax({
-                url: postURL,
-                type: 'post',
-                data: {
-                    action: 0,
-                    impression_id: id
-                },
-                success: function () {
-                    that.css('color','#ff8d27');
-                },
-                error: function () {
-                    alert('发生错误');
-                }
-            });
+            if ($(this).parents('.tools').find('.toolFocus').length == 0) {
+                $.ajax({
+                    url: postURL,
+                    type: 'post',
+                    data: {
+                        action: 0,
+                        impression_id: id
+                    },
+                    success: function () {
+                        that.unbind('click');
+                        that.addClass('toolFocus');
+                        that.removeClass('toolUp');
+                    },
+                    error: function () {
+                        alert('发生错误');
+                    }
+                });
+            } else {
+                alert('您已经赞过了，不能点踩！');
+            }
         });
         $('.shareBtn').on('touchend', function () {
             alert('点击右上角分享到朋友圈');

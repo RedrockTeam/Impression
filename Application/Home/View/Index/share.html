@@ -49,41 +49,54 @@
 			shareImg = '',
 			postURL = '';//赞地址
 		$('.toolUp').on('touchend',function () {
-			var that = $(this);
-			var id = $(this).parents('.other').data('id');
-			$.ajax({
-				url: postURL,
-				type: 'post',
-				data: {
-					action: 1,
-					impression_id: id
-				},
-				success: function () {
-					that.css('color','#ff8d27');
-				},
-				error: function () {
-					alert('发生错误');
-				}
-			});
-		});
-		$('.toolDown').on('touchend',function () {
-			var that = $(this);
-			var id = $(this).parents('.other').data('id');
-			$.ajax({
-				url: postURL,
-				type: 'post',
-				data: {
-					action: 0,
-					impression_id: id
-				},
-				success: function () {
-					that.css('color','#ff8d27');
-				},
-				error: function () {
-					alert('发生错误');
-				}
-			});
-		});
+            var that = $(this);
+            var id = $(this).parents('.other').data('id');
+            if ($(this).parents('.tools').find('.toolFocus').length == 0) {
+                $.ajax({
+                    url: postURL,
+                    type: 'post',
+                    data: {
+                        action: 1,
+                        impression_id: id
+                    },
+                    success: function () {
+                        that.unbind('click');
+                        that.addClass('toolFocus');
+                        that.removeClass('toolUp');
+                    },
+                    error: function () {
+                        alert('发生错误');
+                    }
+                });
+            } else {
+                alert('您已经踩过了，不能点赞！');
+            }
+            
+        });
+        $('.toolDown').on('touchend',function () {
+            var that = $(this);
+            var id = $(this).parents('.other').data('id');
+            if ($(this).parents('.tools').find('.toolFocus').length == 0) {
+                $.ajax({
+                    url: postURL,
+                    type: 'post',
+                    data: {
+                        action: 0,
+                        impression_id: id
+                    },
+                    success: function () {
+                        that.unbind('click');
+                        that.addClass('toolFocus');
+                        that.removeClass('toolUp');
+                    },
+                    error: function () {
+                        alert('发生错误');
+                    }
+                });
+            } else {
+                alert('您已经赞过了，不能点踩！');
+            }
+        });
 
 		//wx
 		wx.config({
