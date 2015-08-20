@@ -22,3 +22,27 @@ INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
 INFO: [ app_init ] --END-- [ RunTime:0.000230s ]
 ERR: 无法加载模块:Public
 
+[ 2015-08-20T22:08:36+08:00 ] ::1 /Impression/Application/Home/View/Index/__PUBLIC__/dist/assets/js/zepto.min.js
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001354s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002985s ]
+ERR: 无法加载模块:Application
+
+[ 2015-08-20T22:08:36+08:00 ] ::1 /Impression/Application/Home/View/Index/__PUBLIC__/dist/assets/css/main.css
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001216s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002985s ]
+ERR: 无法加载模块:Application
+
+[ 2015-08-20T22:09:25+08:00 ] ::1 /Impression/Application/Home/View/Index/__PUBLIC__/dist/assets/js/zepto.min.js
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.003336s ]
+ERR: 无法加载模块:Application
+
+[ 2015-08-20T22:09:25+08:00 ] ::1 /Impression/Application/Home/View/Index/__PUBLIC__/dist/assets/css/main.css
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000035s ]
+INFO: [ app_init ] --END-- [ RunTime:0.003147s ]
+ERR: 无法加载模块:Application
+

@@ -26,6 +26,15 @@
                     <div class="tool toolUp iconfont">&#xe603;<span><?php echo ($vo["down"]); ?></span></div>
                 </div>
             </li><?php endforeach; endif; else: echo "" ;endif; ?>
+        <li class="other" data-id="id">
+            <div class="otherPic iconfont" style="background-image:url(dist/assets/images/logo.png)"></div>
+            <div class="otherName">匿名</div>
+            <div class="othercom">443jaijgiopawjg阿娇搜噶是敬爱工啊搜集打工 撒大家给骄傲的施</div>
+            <div class="tools">
+                <div class="tool toolDown iconfont">&#xe606;<span>7</span></div>
+                <div class="tool toolUp iconfont">&#xe603;<span>7</span></div>
+            </div>
+        </li>
     </ul>
     <div class="share">
         <div class="shareBg"></div>
@@ -38,6 +47,7 @@
             shareURL = '',
             shareImg = '',
             postURL = "<?php echo U('Index/action');?>", //赞接口
+            cancelURL = "", //取消赞
             delURL = "<?php echo U('Index/delImpression');?>"; //删除接口
         $('.toolDel').on('touchend',function () {
             var that = $(this);
@@ -60,20 +70,27 @@
         $('.toolUp').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
-            $.ajax({
-                url: postURL,
-                type: 'post',
-                data: {
-                    action: 1,
-                    impression_id: id
-                },
-                success: function () {
-                    that.css('color','#ff8d27'); 
-                },
-                error: function () {
-                    alert('发生错误');
-                }
-            });
+            if ($(this).parents('.tools').find('.toolDown').length == 0) {
+                console.log(1);
+            } else {
+
+            }
+            // $.ajax({
+            //     url: postURL,
+            //     type: 'post',
+            //     data: {
+            //         action: 1,
+            //         impression_id: id
+            //     },
+            //     success: function () {
+            //         that.unbind('click');
+            //         that.addClass('upFocus');
+            //         that.removeClass('toolDown');
+            //     },
+            //     error: function () {
+            //         alert('发生错误');
+            //     }
+            // });
         });
         $('.toolDown').on('touchend',function () {
             var that = $(this);
@@ -86,7 +103,9 @@
                     impression_id: id
                 },
                 success: function () {
-                    that.css('color','#ff8d27');
+                    that.unbind('click');
+                    that.addClass('downFocus');
+                    that.removeClass('toolDown');
                 },
                 error: function () {
                     alert('发生错误');
