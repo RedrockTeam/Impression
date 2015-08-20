@@ -55,9 +55,9 @@ class IndexController extends Controller{
     //查看印象
     public function viewImpression() {
         $uid = I('get.uid');
-//        if(!$uid) {
-//            $this->error('非法链接');
-//        }
+        if(!$uid) {
+            $this->error('非法链接');
+        }
         $impression = M('impression_user');
         $openid = M('users')->where(array('id' => $uid))->getField('openid');
         $map = array(
@@ -240,6 +240,7 @@ class IndexController extends Controller{
 
     }
 
+    //分享页面
     public function share(){
         $this->display('share');
     }

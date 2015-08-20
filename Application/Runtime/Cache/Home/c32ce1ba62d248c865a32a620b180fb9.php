@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="mine">
-        <div class="minePic" style="background-image:url(/Impression/Public/dist/assets/images/<?php echo $user['avatar']?$user['avatar']:'bg.png' ?>)"></div>
+        <div class="minePic" style="background-image:url(<?php echo $user['avatar']?$user['avatar']:'/Impression/Public/dist/assets/images/bg.png' ?>)"></div>
         <div class="mineName"><?php echo ($user["nickname"]); ?></div>
         <div class="mineIntro"><?php echo ($user["signature"]); ?></div>
     </div>
@@ -17,7 +17,7 @@
             <?php else: ?>
                 <li class="none">我还未收到任何印象</li><?php endif; ?>
         <?php if(is_array($data)): $i = 0; $__LIST__ = $data;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="other box" data-id="<?php echo ($vo["impression_id"]); ?>">
-                <div class="otherPic iconfont" style="background-image:url(/Impression/Public/dist/assets/images/<?php echo $vo['avatar']?$vo['avatar']:'bg.png' ?>)"></div>
+                <div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'/Impression/Public/dist/assets/images/bg.png' ?>)"></div>
                 <div class="otherName"><?php echo ($vo["nickname"]); ?></div>
                 <div class="othercom"><?php echo ($vo["content"]); ?></div>
                 <div class="tools">

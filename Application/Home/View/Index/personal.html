@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="mine">
-        <div class="minePic" style="background-image:url(__PUBLIC__/dist/assets/images/<?php echo $user['avatar']?$user['avatar']:'bg.png' ?>)"></div>
+        <div class="minePic" style="background-image:url(<?php echo $user['avatar']?$user['avatar']:'__PUBLIC__/dist/assets/images/bg.png' ?>)"></div>
         <div class="mineName">{$user.nickname}</div>
         <div class="mineIntro">{$user.signature}</div>
     </div>
@@ -20,7 +20,7 @@
         </if>
         <volist name="data" id="vo">
             <li class="other box" data-id="{$vo.impression_id}">
-                <div class="otherPic iconfont" style="background-image:url(__PUBLIC__/dist/assets/images/<?php echo $vo['avatar']?$vo['avatar']:'bg.png' ?>)"></div>
+                <div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'__PUBLIC__/dist/assets/images/bg.png' ?>)"></div>
                 <div class="otherName">{$vo.nickname}</div>
                 <div class="othercom">{$vo.content}</div>
                 <div class="tools">
