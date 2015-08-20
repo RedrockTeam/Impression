@@ -4,3 +4,4 @@
 gulpfile.js
 .DS_Store
 .idea
+/Application/Runtime
