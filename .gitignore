@@ -2,3 +2,4 @@
 /res/*
 /src/*
 gulpfile.js
+.DS_Store
