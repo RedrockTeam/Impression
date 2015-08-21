@@ -323,7 +323,9 @@ class IndexController extends Controller{
             return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
         }else{
             session('code', $code);
-            $return =  json_decode($this->getOpenId());
+            $return =  $this->getOpenId();
+            var_dump($return);
+            return;
             $openid = $return['data']['openid'];
             if(!$openid) {
                 $this->error('身份认证失败!');
@@ -414,7 +416,7 @@ class IndexController extends Controller{
                 'code' => $code,
         );
         $url = "http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/webOauth";
-        return json_encode($this->curl_api($url, $t2), true);
+        return $this->curl_api($url, $t2);
     }
 
     private function getTicket() {
