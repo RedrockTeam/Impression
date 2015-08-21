@@ -324,8 +324,8 @@ class IndexController extends Controller{
         }else{
             session('code', $code);
             $return =  $this->getOpenId();
-            var_dump($return);
-            return;
+//            var_dump($return);
+//            return;
             $openid = $return['data']['openid'];
             if(!$openid) {
                 $this->error('身份认证失败!');
