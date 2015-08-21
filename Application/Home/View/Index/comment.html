@@ -31,6 +31,7 @@
         Comment.prototype.post = function () {
             var postData = {
                 "content": this.content,
+                "uid" : {:I('get.uid')},
                 "hide": (function(){
                     if (document.getElementById('checkbox').checked == true) {
                         return 1;
