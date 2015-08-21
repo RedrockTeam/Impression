@@ -68,6 +68,7 @@
                     },
                     success: function () {
                         that.parents('.other').css('display','none');
+                        $('.list').find('span').eq(0).html($('.list').find('span').eq(0).html() * 1 - 1);
                     },
                     error: function () {
                         alert('发生错误');
