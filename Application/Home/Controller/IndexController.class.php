@@ -146,6 +146,7 @@ class IndexController extends Controller{
             session('code', $code);
             $return =  json_decode($this->getOpenId());
             $openid = $return['data']['openid'];
+
             $timestamp = time();
             $string = 'sadfsadfdsfa';
             $access = array(
@@ -155,6 +156,20 @@ class IndexController extends Controller{
                 'secret' => sha1(sha1($timestamp).md5($string)."redrock"),
                 'openid' => $openid
             );
+            $map = array(
+                'openid' => $openid
+            );
+            $data = M('users')->where($map)->find();
+            if ($data == null) {
+                $save = array(
+                    'openid' => $return['data']['openid'],
+                    'avatar' => $return['data']['headimgurl'],
+                    'signature' => '',
+                    'nickname' => $return['data']['nickname'],
+                );
+                $data = M('users')->add($save);
+            }
+            session('uid', $data['id']);
             if(!$this->checkAttention($access)) {
                 $path = __SELF__;
                 $this->assign('path', $path);
@@ -164,6 +179,7 @@ class IndexController extends Controller{
                 $this->display('comment');
                 return;
             }
+
             session('openid', $openid);
         }
         $path = __SELF__;
