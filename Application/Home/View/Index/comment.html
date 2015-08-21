@@ -30,7 +30,7 @@
         };
         Comment.prototype.post = function () {
             var postData = {
-                "signature": this.content,
+                "content": this.content,
                 "hide": (function(){
                     if (document.getElementById('checkbox').checked == true) {
                         return 1;
