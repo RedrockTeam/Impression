@@ -84,16 +84,14 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.unbind('click');
                         that.addClass('toolFocus');
-                        that.removeClass('toolUp');
                     },
                     error: function () {
                         alert('发生错误');
                     }
                 });
             } else {
-                alert('您已经踩过了，不能点赞！');
+                alert('您已经评价过了。');
             }
             
         });
@@ -109,16 +107,14 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.unbind('click');
                         that.addClass('toolFocus');
-                        that.removeClass('toolUp');
                     },
                     error: function () {
                         alert('发生错误');
                     }
                 });
             } else {
-                alert('您已经赞过了，不能点踩！');
+                alert('您已经评价过了。');
             }
         });
         $('.shareBtn').on('touchend', function () {
