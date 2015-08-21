@@ -39,8 +39,8 @@
     <script src="__PUBLIC__/dist/assets/js/zepto.min.js"></script>
     <script>
         var isWX = true,//是否关注 boolean
-            shareURL = '',
-            shareImg = '',
+            shareURL = "{:U('Index/share')}?uid={:session('uid')}",
+            shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
             postURL = "{:U('Index/action')}", //赞接口
             delURL = "{:U('Index/delImpression')}"; //删除接口
         $('.toolDel').on('touchend',function () {
