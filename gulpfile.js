@@ -25,7 +25,7 @@ gulp.task('testLess' , function () {
 	})
 	.pipe(autoprefixer())
 	.pipe(cssmin())
-	.pipe(gulp.dest('dist/assets/css'));
+	.pipe(gulp.dest('Public/dist/assets/css'));
 });
 
 //js
