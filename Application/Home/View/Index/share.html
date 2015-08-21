@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=200">
 	<title>重邮印象墙</title>
-	<link rel="stylesheet" href="__PUBLIC__/dist/assets/css/style.css">
+	<link rel="stylesheet" href="__PUBLIC__/dist/assets/css/main.css">
 </head>
 <body>
 <div class="mine">
@@ -51,7 +51,7 @@
 		var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
 			shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:I('get.uid')}",
 			shareImg = "{$user.avatar}",
-			postURL = '';//赞地址
+			postURL = "{:U('Index/action')}";//赞地址
 		$('.toolUp').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
