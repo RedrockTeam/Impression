@@ -55,8 +55,8 @@
         $('.toolUp').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
-            that.addClass('toolFocus');
             if ($(this).parents('.tools').eq(0).find('.toolFocus').length == 0) {
+                that.addClass('toolFocus');
                 $.ajax({
                     url: postURL,
                     type: 'post',
@@ -79,8 +79,8 @@
         $('.toolDown').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
-            that.addClass('toolFocus');
             if ($(this).parents('.tools').eq(0).find('.toolFocus').length == 0) {
+                that.addClass('toolFocus');
                 $.ajax({
                     url: postURL,
                     type: 'post',
