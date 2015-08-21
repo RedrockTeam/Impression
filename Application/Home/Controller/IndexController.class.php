@@ -165,7 +165,7 @@ class IndexController extends Controller{
                 return;
             }
             session('openid', $openid);
-//        }
+        }
         $path = __SELF__;
         $this->assign('path', $path);
         $ticket = $this->getTicket();
