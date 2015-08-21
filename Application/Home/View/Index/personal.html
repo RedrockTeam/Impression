@@ -79,6 +79,7 @@
         $('.toolUp').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
+            that.addClass('toolFocus');
             if ($(this).parents('.tools').find('.toolFocus').length == 0) {
                 $.ajax({
                     url: postURL,
@@ -88,7 +89,6 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.addClass('toolFocus');
                         that.find('span').eq(0).html(that.find('span').eq(0).html() * 1 + 1);
                     },
                     error: function () {
@@ -103,6 +103,7 @@
         $('.toolDown').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
+            that.addClass('toolFocus');
             if ($(this).parents('.tools').find('.toolFocus').length == 0) {
                 $.ajax({
                     url: postURL,
@@ -112,7 +113,6 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.addClass('toolFocus');
                         that.find('span').eq(0).html(that.find('span').eq(0).html() * 1 + 1);
                     },
                     error: function () {
