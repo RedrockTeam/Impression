@@ -89,7 +89,7 @@
                     },
                     success: function () {
                         that.addClass('toolFocus');
-                        that.find('span').val(that.find('span').val() + 1);
+                        that.find('span').eq(0).val(that.find('span').val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
@@ -113,7 +113,7 @@
                     },
                     success: function () {
                         that.addClass('toolFocus');
-                        that.find('span').val(that.find('span').val() + 1);
+                        that.find('span').eq(0).val(that.find('span').val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
