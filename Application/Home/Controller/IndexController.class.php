@@ -324,8 +324,6 @@ class IndexController extends Controller{
         }else{
             session('code', $code);
             $return =  $this->getOpenId();
-//            var_dump($return);
-//            return;
             $openid = $return['data']['openid'];
             if(!$openid) {
                 $this->error('身份认证失败!');
@@ -367,7 +365,6 @@ class IndexController extends Controller{
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
-        $this->display('personal'); //todo
         $this->display('share');
     }
 
