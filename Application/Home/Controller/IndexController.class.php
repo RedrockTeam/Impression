@@ -46,6 +46,8 @@ class IndexController extends Controller{
             $data = M('users')->add($save);
         }
         session('uid', $data['id']);
+        print_r($this->getTicket());
+        return;
         $this->assign('data', $data);
         $this->display(); //todo
     }
@@ -355,6 +357,25 @@ class IndexController extends Controller{
                 'code' => $code,
         );
         $url = "http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/webOauth";
+        return json_encode($this->curl_api($url, $t2), true);
+    }
+
+    private function getTicket() {
+        $time=time();
+        $str = 'abcdefghijklnmopqrstwvuxyz1234567890ABCDEFGHIJKLNMOPQRSTWVUXYZ';
+        $string='';
+        for($i=0;$i<16;$i++){
+            $num = mt_rand(0,61);
+            $string .= $str[$num];
+        }
+        $secret =sha1(sha1($time).md5($string)."redrock");
+        $t2 = array(
+            'timestamp'=>$time,
+            'string'=>$string,
+            'secret'=>$secret,
+            'token'=>$this->acess_token,
+        );
+        $url = "http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/apiJsTicket";
         return json_encode($this->curl_api($url, $t2), true);
     }
 }
