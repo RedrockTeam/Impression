@@ -162,9 +162,10 @@ class IndexController extends Controller{
                 $this->assign('care', false);
                 $this->assign('ticket',$ticket['data']);
                 $this->display('comment');
+                return;
             }
             session('openid', $openid);
-        }
+//        }
         $path = __SELF__;
         $this->assign('path', $path);
         $ticket = $this->getTicket();
