@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>重邮印象墙</title>
-    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/comment.css">
+    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/com.css">
 </head>
 <body>
     <div class="commentOuter" style="margin-top:1rem;">
@@ -113,12 +113,14 @@
                 document.getElementById('close').addEventListener('click',function () {
                     document.getElementById('shade').style.display = 'none';
                     document.getElementById('shade').innerHTML = '';
+                    window.location.href = document.referrer;
                 });
             }
             if (document.getElementById('_close')) {
                 document.getElementById('_close').addEventListener('click',function () {
                     document.getElementById('shade').style.display = 'none';
                     document.getElementById('shade').innerHTML = '';
+                    window.location.href = document.referrer;
                 });
             }
         };
