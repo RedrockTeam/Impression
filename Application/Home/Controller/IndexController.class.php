@@ -24,10 +24,8 @@ class IndexController extends Controller{
                 'openid' => $openid
         );
         if (!$this->checkAttention($access)) {
-            $data = array(
-                    'care' => false
-            );
-            $this->assign('data', $data);
+            $care = false;
+            $this->assign('care', $care);
             $this->display(); //todo
         }
         session('openid', $openid);
@@ -47,7 +45,9 @@ class IndexController extends Controller{
         }
         session('uid', $data['id']);
         $path = __SELF__;
+
         $this->assign('path', $path);
+        $this->assign('care', true);
         $ticket = $this->getTicket();
         $this->assign('ticket',$ticket);
         $this->assign('data', $data);
@@ -87,6 +87,7 @@ class IndexController extends Controller{
         $user = M('users')->where(array('id' => $uid))->find();
         $path = __SELF__;
         $this->assign('path', $path);
+        $this->assign('care', true);
         $ticket = $this->getTicket();
         $this->assign('ticket',$ticket);
         $this->assign('data', $data);
@@ -124,7 +125,10 @@ class IndexController extends Controller{
             }
             session('openid', $openid);
         }
-        session('to_id', $uid);
+        $this->ajaxReturn(array(
+            'status' => 200,
+            'info' => '成功'
+        ));
     }
 
     //发表印象页面
@@ -132,6 +136,7 @@ class IndexController extends Controller{
         $path = __SELF__;
         $this->assign('path', $path);
         $ticket = $this->getTicket();
+        $this->assign('care', true);
         $this->assign('ticket',$ticket);
         $this->display('comment');
     }
@@ -225,6 +230,7 @@ class IndexController extends Controller{
     public function editSignaturePage() {
         $ticket = $this->getTicket();
         $path = __SELF__;
+        $this->assign('care', true);
         $this->assign('path', $path);
         $this->assign('ticket',$ticket);
         $this->display('card');
@@ -321,6 +327,7 @@ class IndexController extends Controller{
         $user = M('users')->where(array('id' => $uid))->find();
         $ticket = $this->getTicket();
         $path = __SELF__;
+        $this->assign('care', true);
         $this->assign('path', $path);
         $this->assign('ticket',$ticket);
         $this->assign('data', $data);
