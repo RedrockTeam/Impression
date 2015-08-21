@@ -140,7 +140,7 @@ class IndexController extends Controller{
         //获取openid
         $code = I('get.code');
         if($code == null){
-            $re_url = urlencode(U('Index/createImpressionView').'?uid='.$uid);
+            $re_url = urlencode(U('Index/createImpressionPage').'?uid='.$uid);
             return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
         }else{
             session('code', $code);
