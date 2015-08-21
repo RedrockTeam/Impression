@@ -46,8 +46,8 @@ class IndexController extends Controller{
             $data = M('users')->add($save);
         }
         session('uid', $data['id']);
-        print_r($this->getTicket());
-        return;
+        $ticket = $this->getTicket();
+        $this->assign('ticket',$ticket);
         $this->assign('data', $data);
         $this->display(); //todo
     }
@@ -83,13 +83,15 @@ class IndexController extends Controller{
         }
         $num = $impression->where($map)->count();
         $user = M('users')->where(array('id' => $uid))->find();
+        $ticket = $this->getTicket();
+        $this->assign('ticket',$ticket);
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
         $this->display('personal'); //todo
     }
 
-    //发表印象页面
+    //发表印象
     public function createImpressionView() {
         $uid = I('get.uid');
         if($uid < 1) {
@@ -123,6 +125,8 @@ class IndexController extends Controller{
 
     //发表印象页面
     public function createImpressionPage() {
+        $ticket = $this->getTicket();
+        $this->assign('ticket',$ticket);
         $this->display('comment');
     }
     //发表印象
@@ -213,6 +217,8 @@ class IndexController extends Controller{
 
     //编辑个性签名页面
     public function editSignaturePage() {
+        $ticket = $this->getTicket();
+        $this->assign('ticket',$ticket);
         $this->display('card');
     }
 
@@ -305,6 +311,8 @@ class IndexController extends Controller{
         }
         $num = $impression->where($map)->count();
         $user = M('users')->where(array('id' => $uid))->find();
+        $ticket = $this->getTicket();
+        $this->assign('ticket',$ticket);
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
