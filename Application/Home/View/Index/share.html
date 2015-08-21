@@ -49,7 +49,7 @@
 	<script src="dist/assets/js/zepto.min.js"></script>
 	<script>
 		var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
-			shareURL = "{:U('Index/share')}?uid={:I('get.uid')}",
+			shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:I('get.uid')}",
 			shareImg = "{$user.avatar}",
 			postURL = '';//赞地址
 		$('.toolUp').on('touchend',function () {
