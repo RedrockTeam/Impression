@@ -24,10 +24,8 @@ class IndexController extends Controller{
                 'openid' => $openid
         );
         if (!$this->checkAttention($access)) {
-            $data = array(
-                    'care' => false
-            );
-            $this->assign('data', $data);
+            $care = false;
+            $this->assign('care', $care);
             $this->display(); //todo
         }
         session('openid', $openid);
@@ -47,9 +45,11 @@ class IndexController extends Controller{
         }
         session('uid', $data['id']);
         $path = __SELF__;
+
         $this->assign('path', $path);
+        $this->assign('care', true);
         $ticket = $this->getTicket();
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->assign('data', $data);
         $this->display(); //todo
     }
@@ -87,8 +87,9 @@ class IndexController extends Controller{
         $user = M('users')->where(array('id' => $uid))->find();
         $path = __SELF__;
         $this->assign('path', $path);
+        $this->assign('care', true);
         $ticket = $this->getTicket();
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
@@ -124,15 +125,51 @@ class IndexController extends Controller{
             }
             session('openid', $openid);
         }
-        session('to_id', $uid);
+        $this->ajaxReturn(array(
+            'status' => 200,
+            'info' => '成功'
+        ));
     }
 
     //发表印象页面
     public function createImpressionPage() {
+        $uid = I('get.uid');
+        if($uid < 1) {
+            $this->error('参数错误');
+        }
+        //获取openid
+        $code = I('get.code');
+        if($code == null){
+            $re_url = urlencode(U('Index/createImpressionView').'?uid='.$uid);
+            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
+        }else{
+            session('code', $code);
+            $return =  json_decode($this->getOpenId());
+            $openid = $return['data']['openid'];
+            $timestamp = time();
+            $string = 'sadfsadfdsfa';
+            $access = array(
+                'token' => 'gh_68f0a1ffc303',
+                'timestamp' => $timestamp,
+                'string' => $string,
+                'secret' => sha1(sha1($timestamp).md5($string)."redrock"),
+                'openid' => $openid
+            );
+            if(!$this->checkAttention($access)) {
+                $path = __SELF__;
+                $this->assign('path', $path);
+                $ticket = $this->getTicket();
+                $this->assign('care', false);
+                $this->assign('ticket',$ticket['data']);
+                $this->display('comment');
+            }
+            session('openid', $openid);
+        }
         $path = __SELF__;
         $this->assign('path', $path);
         $ticket = $this->getTicket();
-        $this->assign('ticket',$ticket);
+        $this->assign('care', true);
+        $this->assign('ticket',$ticket['data']);
         $this->display('comment');
     }
     //发表印象
@@ -225,8 +262,9 @@ class IndexController extends Controller{
     public function editSignaturePage() {
         $ticket = $this->getTicket();
         $path = __SELF__;
+        $this->assign('care', true);
         $this->assign('path', $path);
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->display('card');
     }
 
@@ -321,8 +359,9 @@ class IndexController extends Controller{
         $user = M('users')->where(array('id' => $uid))->find();
         $ticket = $this->getTicket();
         $path = __SELF__;
+        $this->assign('care', true);
         $this->assign('path', $path);
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
@@ -394,6 +433,6 @@ class IndexController extends Controller{
             'token'=>$this->acess_token,
         );
         $url = "http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/apiJsTicket";
-        return json_encode($this->curl_api($url, $t2), true);
+        return $this->curl_api($url, $t2);
     }
 }

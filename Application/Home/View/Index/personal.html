@@ -50,8 +50,8 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="__PUBLIC__/dist/assets/js/zepto.min.js"></script>
     <script>
-        var isWX = true,//是否关注 boolean
-            shareURL = "{:U('Index/share')}?uid={:session('uid')}",
+        var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
+            shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:session('uid')}",
             shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
             postURL = "{:U('Index/action')}", //赞接口
             delURL = "{:U('Index/delImpression')}"; //删除接口
@@ -167,11 +167,11 @@
 
         //wx
         wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: '', // 必填，公众号的唯一标识
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx81a4a4b77ec98ff4', // 必填，公众号的唯一标识
             timestamp: <?php echo $time = time() ?>, // 必填，生成签名的时间戳
         nonceStr: 'asdf', // 必填，生成签名的随机串
-                signature: "<?php echo sha1('jsapi_ticket=$ticket&noncestr=asdf&timestamp='.$time.'&url=http://hongyan.cqupt.edu.cn/'.$path); ?>",// 必填，签名，见附录1
+                signature: "<?php echo sha1('jsapi_ticket='.$ticket.'&noncestr=asdf&timestamp='.$time.'&url=http://hongyan.cqupt.edu.cn'.$path); ?>",// 必填，签名，见附录1
         jsApiList: [
             'onMenuShareTimeline',
             'onMenuShareAppMessage'
