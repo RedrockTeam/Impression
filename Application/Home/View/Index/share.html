@@ -51,7 +51,7 @@
 		var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
 			shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:I('get.uid')}",
 			shareImg = "{$user.avatar}",
-			postURL = '';//赞地址
+			postURL = "{:U('Index/action')}";//赞地址
 		$('.toolUp').on('touchend',function () {
             var that = $(this);
             var id = $(this).parents('.other').data('id');
