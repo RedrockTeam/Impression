@@ -28,6 +28,8 @@
         document.getElementById('personal').addEventListener('click', function () {
             window.location = "{:U('Index/viewImpression')}?uid={:session('uid')}"; //跳转链接
         });
+
+        alert(document.body.style.fontSize);
         function Show () {
             this.smile = {
                 str: '&#xe77d;',
