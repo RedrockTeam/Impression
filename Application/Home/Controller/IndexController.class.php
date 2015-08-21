@@ -46,6 +46,8 @@ class IndexController extends Controller{
             $data = M('users')->add($save);
         }
         session('uid', $data['id']);
+        $path = __SELF__;
+        $this->assign('path', $path);
         $ticket = $this->getTicket();
         $this->assign('ticket',$ticket);
         $this->assign('data', $data);
@@ -83,6 +85,8 @@ class IndexController extends Controller{
         }
         $num = $impression->where($map)->count();
         $user = M('users')->where(array('id' => $uid))->find();
+        $path = __SELF__;
+        $this->assign('path', $path);
         $ticket = $this->getTicket();
         $this->assign('ticket',$ticket);
         $this->assign('data', $data);
@@ -125,6 +129,8 @@ class IndexController extends Controller{
 
     //发表印象页面
     public function createImpressionPage() {
+        $path = __SELF__;
+        $this->assign('path', $path);
         $ticket = $this->getTicket();
         $this->assign('ticket',$ticket);
         $this->display('comment');
@@ -218,6 +224,8 @@ class IndexController extends Controller{
     //编辑个性签名页面
     public function editSignaturePage() {
         $ticket = $this->getTicket();
+        $path = __SELF__;
+        $this->assign('path', $path);
         $this->assign('ticket',$ticket);
         $this->display('card');
     }
@@ -312,6 +320,8 @@ class IndexController extends Controller{
         $num = $impression->where($map)->count();
         $user = M('users')->where(array('id' => $uid))->find();
         $ticket = $this->getTicket();
+        $path = __SELF__;
+        $this->assign('path', $path);
         $this->assign('ticket',$ticket);
         $this->assign('data', $data);
         $this->assign('num', $num);
