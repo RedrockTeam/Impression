@@ -47,6 +47,7 @@
         <div class="shareBg"></div>
         <div class="shareBtn buttonStyle">我要分享</div>
     </div>
+    <div id="shade"></div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="__PUBLIC__/dist/assets/js/zepto.min.js"></script>
     <script>
@@ -59,19 +60,22 @@
             var that = $(this);
             var id = $(this).parents('.box').data('id');
             console.log(id);
-            $.ajax({
-                url: delURL,
-                type: 'post',
-                data: {
-                    impression_id: id
-                },
-                success: function () {
-                    that.parents('.other').css('display','none');
-                },
-                error: function () {
-                    alert('发生错误');
-                }
+            show.display(that, function () {
+                $.ajax({
+                    url: delURL,
+                    type: 'post',
+                    data: {
+                        impression_id: id
+                    },
+                    success: function () {
+                        that.parents('.other').css('display','none');
+                    },
+                    error: function () {
+                        alert('发生错误');
+                    }
+                });
             });
+            
         });
         $('.toolUp').on('touchend',function () {
             var that = $(this);
@@ -122,6 +126,43 @@
             alert('点击右上角分享到朋友圈');
         });
         
+        //delete
+        function Show () {
+            this.smile = {
+                str: '&#xe77d;',
+                color: '#008e06'
+            },
+            this.sad = {
+                str: '&#xf0067;',
+                color: '#ff8d27'
+            }
+        }
+        Show.prototype.display = function (status, callback) {
+            var string = '<div class="bc"></div><div class="shadeMeg">';
+                string += '<div class="iconfont" id="close">&#xe636;</div><div class="face iconfont" style="color:' + this.sad.color + '">' + this.sad.str + '</div>';
+                string += '<h2>确定要删除吗？</h2>';
+                string += '<a class="button buttonStyle" id="_close">确定</a></div>';
+            
+            document.getElementById('shade').style.display = 'block';
+            document.getElementById('shade').innerHTML = string;
+            
+            if (document.getElementById('close')) {
+                document.getElementById('close').addEventListener('click',function () {
+                    document.getElementById('shade').style.display = 'none';
+                    document.getElementById('shade').innerHTML = '';
+                });
+            }
+            if (document.getElementById('_close')) {
+                document.getElementById('_close').addEventListener('click',function () {
+                    document.getElementById('shade').style.display = 'none';
+                    document.getElementById('shade').innerHTML = '';
+                });
+                callback();
+            }
+        };
+
+        var show = new Show();
+
         //wx
         wx.config({
             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
