@@ -20,7 +20,7 @@
                 shareURL = "{:U('Index/share')}?uid={:session('uid')}",
                 shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>";
         function Comment () {
-            this.postURL = "{:U('Index/edtiSignature')}";
+            this.postURL = "{:U('Index/editSignature')}";
         }
         Comment.prototype.bind = function () {
             var that = this;

@@ -21,7 +21,7 @@
             shareURL = "{:U('Index/share')}?uid={:session('uid')}",
             shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/hide.jpg' ?>";
         document.getElementById('card').addEventListener('click', function () {
-            window.location = "{:U('Index/edtiSignaturePage')}?uid={:session('uid')}"; //跳转链接
+            window.location = "{:U('Index/editSignaturePage')}?uid={:session('uid')}"; //跳转链接
         });
         document.getElementById('personal').addEventListener('click', function () {
             window.location = "{:U('Index/viewImpression')}?uid={:session('uid')}"; //跳转链接

@@ -89,14 +89,14 @@ class IndexController extends Controller{
 
     //发表印象页面
     public function createImpressionView() {
-        $id = I('get.uid');
-        if($id < 1) {
+        $uid = I('get.uid');
+        if($uid < 1) {
             $this->error('参数错误');
         }
         //获取openid
         $code = I('get.code');
         if($code == null){
-            $re_url = urlencode(U('Index/createImpressionView'));
+            $re_url = urlencode(U('Index/createImpressionView').'?uid='.$uid);
             return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
         }else{
             session('code', $code);
@@ -116,7 +116,7 @@ class IndexController extends Controller{
             }
             session('openid', $openid);
         }
-        session('to_id', $id);
+        session('to_id', $uid);
     }
 
     //发表印象页面
@@ -210,12 +210,12 @@ class IndexController extends Controller{
     }
 
     //编辑个性签名页面
-    public function edtiSignaturePage() {
+    public function editSignaturePage() {
         $this->display('card');
     }
 
     //编辑个性签名
-    public function edtiSignature() {
+    public function editSignature() {
         $openid = session('openid');
         if(!$openid) {
             $this->ajaxReturn(array(
@@ -263,8 +263,9 @@ class IndexController extends Controller{
     //分享页面
     public function share(){
         $code = I('get.code');
+        $uid = I('get.uid');
         if($code == null){
-            $re_url = urlencode(U('Index/share'));
+            $re_url = urlencode(U('Index/share').'?uid='.$uid);
             return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
         }else{
             session('code', $code);
@@ -275,7 +276,7 @@ class IndexController extends Controller{
             }
             session('openid', $openid);
         }
-        $uid = I('get.uid');
+
         if(!$uid) {
             $this->error('非法链接');
         }
