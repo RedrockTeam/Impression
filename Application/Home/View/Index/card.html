@@ -19,7 +19,7 @@
         var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
                 shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:session('uid')}",
                 shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
-                returnPage = "";
+                returnPage = "http://hongyan.cqupt.edu.cn{:U('Index/index')}";
         function Comment () {
             this.postURL = "{:U('Index/editSignature')}";
         }
@@ -137,7 +137,7 @@
 
         wx.ready(function(){
             wx.onMenuShareTimeline({
-                title: '', // 分享标题
+                title: "大家对{$user.nickname}的印象", // 分享标题
                 link: shareURL, // 分享链接
                 imgUrl: shareImg, // 分享图标
                 success: function () { 
@@ -149,7 +149,7 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: '', // 分享标题
+                title: "大家对{$user.nickname}的印象", // 分享标题
                 desc: '', // 分享描述
                 link: shareURL, // 分享链接
                 imgUrl: shareImg, // 分享图标

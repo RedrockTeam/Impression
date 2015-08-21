@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>重邮印象墙</title>
-    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/sshare.css">
+    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/Share.css">
 </head>
 <body>
     <div class="mine">
@@ -89,7 +89,7 @@
                     },
                     success: function () {
                         that.addClass('toolFocus');
-                        that.find('span').eq(0).html(that.find('span').eq(0).html() * 1 + 1);
+                        that.find('span').eq(0).val(that.find('span').val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
@@ -113,7 +113,7 @@
                     },
                     success: function () {
                         that.addClass('toolFocus');
-                        that.find('span').eq(0).html(that.find('span').eq(0).html() * 1 + 1);
+                        that.find('span').eq(0).val(that.find('span').val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
@@ -180,7 +180,7 @@
 
         wx.ready(function(){
             wx.onMenuShareTimeline({
-                title: '', // 分享标题
+                title: "大家对{$user.nickname}的印象", // 分享标题
                 link: shareURL, // 分享链接
                 imgUrl: shareImg, // 分享图标
                 success: function () { 
@@ -192,7 +192,7 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: '', // 分享标题
+                title: "大家对{$user.nickname}的印象", // 分享标题
                 desc: '', // 分享描述
                 link: shareURL, // 分享链接
                 imgUrl: shareImg, // 分享图标

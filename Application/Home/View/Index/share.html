@@ -115,7 +115,7 @@
 
         wx.ready(function(){
             wx.onMenuShareTimeline({
-                title: '', // 分享标题
+                title: "大家对{$user.nickname}的印象", // 分享标题
                 link: shareURL, // 分享链接
                 imgUrl: shareImg, // 分享图标
                 success: function () { 
@@ -127,7 +127,7 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: '', // 分享标题
+                title: "大家对{$user.nickname}的印象", // 分享标题
                 desc: '', // 分享描述
                 link: shareURL, // 分享链接
                 imgUrl: shareImg, // 分享图标

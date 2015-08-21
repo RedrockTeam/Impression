@@ -96,41 +96,6 @@ class IndexController extends Controller{
         $this->display('personal'); //todo
     }
 
-    //发表印象
-    public function createImpressionView() {
-        $uid = I('get.uid');
-        if($uid < 1) {
-            $this->error('参数错误');
-        }
-        //获取openid
-        $code = I('get.code');
-        if($code == null){
-            $re_url = urlencode(U('Index/createImpressionView').'?uid='.$uid);
-            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
-        }else{
-            session('code', $code);
-            $return =  json_decode($this->getOpenId());
-            $openid = $return['data']['openid'];
-            $timestamp = time();
-            $string = 'sadfsadfdsfa';
-            $access = array(
-                    'token' => 'gh_68f0a1ffc303',
-                    'timestamp' => $timestamp,
-                    'string' => $string,
-                    'secret' => sha1(sha1($timestamp).md5($string)."redrock"),
-                    'openid' => $openid
-            );
-            if(!$this->checkAttention($access)) {
-                $this->error('请先关注小帮手~');
-            }
-            session('openid', $openid);
-        }
-        $this->ajaxReturn(array(
-            'status' => 200,
-            'info' => '成功'
-        ));
-    }
-
     //发表印象页面
     public function createImpressionPage() {
         $uid = I('get.uid');
@@ -167,6 +132,8 @@ class IndexController extends Controller{
 
             session('openid', $openid);
         }
+        $user = M('users')->where(array('id' => $uid))->find();
+        $this->assign('user', $user);
         $path = __SELF__;
         $this->assign('path', $path);
         $ticket = $this->getTicket();
@@ -264,7 +231,9 @@ class IndexController extends Controller{
     public function editSignaturePage() {
         $ticket = $this->getTicket();
         $path = __SELF__;
+        $user = M('users')->where(array('id' => session('uid')))->find();
         $this->assign('care', true);
+        $this->assign('user', $user);
         $this->assign('path', $path);
         $this->assign('ticket',$ticket['data']);
         $this->display('card');
