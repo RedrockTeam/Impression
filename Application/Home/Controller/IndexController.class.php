@@ -318,18 +318,18 @@ class IndexController extends Controller{
     public function share(){
         $code = I('get.code');
         $uid = I('get.uid');
-//        if($code == null){
-//            $re_url = urlencode(U('Index/share').'?uid='.$uid);
-//            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
-//        }else{
-//            session('code', $code);
-//            $return =  $this->getOpenId();
-//            $openid = $return['data']['openid'];
-//            if(!$openid) {
-//                $this->error('身份认证失败!');
-//            }
-//            session('openid', $openid);
-//        }
+        if($code == null){
+            $re_url = urlencode(U('Index/share').'?uid='.$uid);
+            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
+        }else{
+            session('code', $code);
+            $return =  $this->getOpenId();
+            $openid = $return['data']['openid'];
+            if(!$openid) {
+                $this->error('身份认证失败!');
+            }
+            session('openid', $openid);
+        }
 
         if(!$uid) {
             $this->error('非法链接');
@@ -350,7 +350,7 @@ class IndexController extends Controller{
                 'openid' => session('openid')
             );
             if(M('user_praise')->where($search)->count()) {
-                $value['action'] = M('user_praise')->where($search)->buildSql();
+                $value['action'] = M('user_praise')->where($search)->getField('action');
             } else {
                 $value['action'] = '';
             }
