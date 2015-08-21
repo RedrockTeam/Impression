@@ -64,9 +64,8 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.unbind('click');
                         that.addClass('toolFocus');
-                        that.removeClass('toolUp');
+                        that.find('span').val(that.find('span').val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
@@ -89,9 +88,8 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.unbind('click');
                         that.addClass('toolFocus');
-                        that.removeClass('toolUp');
+                        that.find('span').val(that.find('span').val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
