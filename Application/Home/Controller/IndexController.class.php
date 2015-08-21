@@ -49,7 +49,7 @@ class IndexController extends Controller{
         $this->assign('path', $path);
         $this->assign('care', true);
         $ticket = $this->getTicket();
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->assign('data', $data);
         $this->display(); //todo
     }
@@ -89,7 +89,7 @@ class IndexController extends Controller{
         $this->assign('path', $path);
         $this->assign('care', true);
         $ticket = $this->getTicket();
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
@@ -137,7 +137,7 @@ class IndexController extends Controller{
         $this->assign('path', $path);
         $ticket = $this->getTicket();
         $this->assign('care', true);
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->display('comment');
     }
     //发表印象
@@ -232,7 +232,7 @@ class IndexController extends Controller{
         $path = __SELF__;
         $this->assign('care', true);
         $this->assign('path', $path);
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->display('card');
     }
 
@@ -329,7 +329,7 @@ class IndexController extends Controller{
         $path = __SELF__;
         $this->assign('care', true);
         $this->assign('path', $path);
-        $this->assign('ticket',$ticket);
+        $this->assign('ticket',$ticket['data']);
         $this->assign('data', $data);
         $this->assign('num', $num);
         $this->assign('user', $user);
@@ -401,6 +401,6 @@ class IndexController extends Controller{
             'token'=>$this->acess_token,
         );
         $url = "http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Api/Api/apiJsTicket";
-        return json_encode($this->curl_api($url, $t2), true);
+        return $this->curl_api($url, $t2);
     }
 }
