@@ -168,7 +168,7 @@ class IndexController extends Controller{
         } else {
             $from_openid = session('openid');
         }
-        $to_openid = M('users')->where(array('id' => $data['uid']))->getField('openid')
+        $to_openid = M('users')->where(array('id' => $data['uid']))->getField('openid');
         $save = array(
                 'from_openid' => $from_openid,
                 'to_openid' => $to_openid,
