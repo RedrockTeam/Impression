@@ -146,7 +146,8 @@ class IndexController extends Controller{
             session('code', $code);
             $return =  json_decode($this->getOpenId());
             $openid = $return['data']['openid'];
-
+var_dump($return);
+            return;
             $timestamp = time();
             $string = 'sadfsadfdsfa';
             $access = array(
