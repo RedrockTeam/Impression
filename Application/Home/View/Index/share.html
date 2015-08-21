@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>重邮印象墙</title>
-    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/Share.css">
+    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/sh.css">
 </head>
 <body>
 <div class="mine">
@@ -18,7 +18,6 @@
         <else />
         <li class="none">TA还未收到任何印象</li>
     </if>
-    {:var_dump($data)}
     <volist name="data" id="vo">
         <li class="other box" data-id="{$vo.impression_id}">
             <div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div>
