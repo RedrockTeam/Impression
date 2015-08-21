@@ -157,8 +157,9 @@
                 document.getElementById('_close').addEventListener('click',function () {
                     document.getElementById('shade').style.display = 'none';
                     document.getElementById('shade').innerHTML = '';
+                    callback();
                 });
-                callback();
+                
             }
         };
 

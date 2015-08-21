@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=200">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=200">
     <title>重邮印象墙</title>
     <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/main.css">
 </head>
 <body>
-    <img class="logo" src="__PUBLIC__/dist/assets/images/logo.png"></img>
-    <div class="pic" style="background-image:url(<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div><!-- tp 的模板就是垃圾-->
-    <h1 class="wxname">{$data.nickname}</h1>
-    <p class="selfIntro"><span>简介：</span>{$data['signature']?$data['signature']:'暂无'}</p>
-    <div class="button buttonStyle" id="card">完善我的卡片</div>
-    <div class="button buttonStyle" id="personal">查看他人对我的印象</div>
-    <span class="copyright">©红岩网校工作站</span>
+    <div style="height:100%;overflow: hidden;">
+        <img class="logo" src="__PUBLIC__/dist/assets/images/logo.png"></img>
+        <div class="pic" style="background-image:url(<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div><!-- tp 的模板就是垃圾-->
+        <h1 class="wxname">{$data.nickname}</h1>
+        <p class="selfIntro"><span>简介：</span>{$data['signature']?$data['signature']:'暂无'}</p>
+        <div class="button buttonStyle" id="card">完善我的卡片</div>
+        <div class="button buttonStyle" id="personal">查看他人对我的印象</div>
+        <span class="copyright">©红岩网校工作站</span>
+    </div> 
     <div id="shade"></div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
