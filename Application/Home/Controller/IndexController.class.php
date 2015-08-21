@@ -352,7 +352,7 @@ class IndexController extends Controller{
             if(M('user_praise')->where($search)->count()) {
                 $value['action'] = M('user_praise')->where($search)->getField('action');
             } else {
-                $value['action'] = '';
+                $value['action'] = 2;
             }
         }
         $num = $impression->where($map)->count();
