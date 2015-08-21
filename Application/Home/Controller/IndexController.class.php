@@ -210,12 +210,12 @@ class IndexController extends Controller{
     }
 
     //编辑个性签名页面
-    public function edtiSignaturePage() {
+    public function editSignaturePage() {
         $this->display('card');
     }
 
     //编辑个性签名
-    public function edtiSignature() {
+    public function editSignature() {
         $openid = session('openid');
         if(!$openid) {
             $this->ajaxReturn(array(
