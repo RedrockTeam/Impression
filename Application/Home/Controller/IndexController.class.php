@@ -70,11 +70,11 @@ class IndexController extends Controller{
                 ->select();
         foreach($data as &$value) {
            $search = array(
-               'impression' =>  $value['impression_id'],
-               'session' => session('openid')
+               'impression_id' =>  $value['impression_id'],
+               'openid' => session('openid')
            );
             if(M('user_praise')->where($search)->count()) {
-                $value['action'] = M('user_praise')->where($search)->getField('action');
+                $value['action'] = M('user_praise')->where($search)->buildSql();
             } else {
                 $value['action'] = '';
             }

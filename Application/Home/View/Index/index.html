@@ -8,7 +8,7 @@
 </head>
 <body>
     <img class="logo" src="__PUBLIC__/dist/assets/images/logo.png"></img>
-    <div class="pic" style="background-image:url(<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>)"></div><!-- tp 的模板就是垃圾-->
+    <div class="pic" style="background-image:url(<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div><!-- tp 的模板就是垃圾-->
     <h1 class="wxname">{$data.nickname}</h1>
     <p class="selfIntro"><span>简介：</span>{$data['signature']?$data['signature']:'暂无'}</p>
     <div class="button buttonStyle" id="card">完善我的卡片</div>
@@ -19,7 +19,7 @@
     <script>
         var isWX = {$data['care']?'true':'false'},//是否关注 boolean
             shareURL = "{:U('Index/share')}?uid={:session('uid')}",
-            shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>";
+            shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/hide.jpg' ?>";
         document.getElementById('card').addEventListener('click', function () {
             window.location = "{:U('Index/edtiSignaturePage')}?uid={:session('uid')}"; //跳转链接
         });
