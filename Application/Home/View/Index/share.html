@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>重邮印象墙</title>
-    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/sh.css">
+    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/sshare.css">
 </head>
 <body>
 <div class="mine">
@@ -49,7 +49,7 @@
     <script src="__PUBLIC__/dist/assets/js/zepto.min.js"></script>
     <script>
         var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
-            shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:I('get.uid')}",
+            shareURL = window.location,
             shareImg = "{$user.avatar}",
             postURL = "{:U('Index/action')}";//赞地址
         $('.toolUp').on('touchend',function () {
@@ -64,9 +64,8 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.unbind('click');
                         that.addClass('toolFocus');
-                        that.removeClass('toolUp');
+                        that.find('span').eq(0).val(that.find('span').eq(0).val() + 1);
                     },
                     error: function () {
                         alert('发生错误');
@@ -89,9 +88,8 @@
                         impression_id: id
                     },
                     success: function () {
-                        that.unbind('click');
                         that.addClass('toolFocus');
-                        that.removeClass('toolUp');
+                        that.find('span').eq(0).val(that.find('span').eq(0).val() + 1);
                     },
                     error: function () {
                         alert('发生错误');

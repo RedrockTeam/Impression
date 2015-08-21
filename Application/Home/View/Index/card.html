@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>重邮印象墙</title>
-    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/Card.css">
+    <link rel="stylesheet" href="__PUBLIC__/dist/assets/css/scard.css">
 </head>
 <body>
     <h2 class="cardTitle">完善我的卡片</h2>
@@ -18,7 +18,8 @@
     <script>
         var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
                 shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:session('uid')}",
-                shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>";
+                shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
+                returnPage = "";
         function Comment () {
             this.postURL = "{:U('Index/editSignature')}";
         }
@@ -105,14 +106,14 @@
                 document.getElementById('close').addEventListener('click',function () {
                     document.getElementById('shade').style.display = 'none';
                     document.getElementById('shade').innerHTML = '';
-                    window.location.href = document.referrer;
+                    window.location = returnPage;
                 });
             }
             if (document.getElementById('_close')) {
                 document.getElementById('_close').addEventListener('click',function () {
                     document.getElementById('shade').style.display = 'none';
                     document.getElementById('shade').innerHTML = '';
-                    window.location.href = document.referrer;
+                    window.location = returnPage;
                 });
             }
         };
