@@ -4,36 +4,40 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=200">
 	<title>重邮印象墙</title>
-	<link rel="stylesheet" href="dist/assets/css/main.css">
+	<link rel="stylesheet" href="__PUBLIC__/dist/assets/css/main.css">
 </head>
 <body>
-	<div class="mine">
-		<div class="minePic" style="background-image:url(dist/assets/images/logo.png)"></div>
-		<div class="mineName">233</div>
-		<div class="mineIntro">443jaijgiopawjg阿娇搜噶是敬爱工啊搜集打工 撒大家给骄傲的施</div>
-	</div>
-	<ul class="others">
-		<li class="none" style="display:none;">TA还未收到任何印象</li>
-		<li class="list">TA共收到<span>18</span>个印象</li>
-		<li class="hide" data-id="id">
-			<div class="otherPic iconfont">&#xe61f;</div>
-			<div class="otherName">匿名</div>
-			<div class="othercom">443jaijgiopawjg阿娇搜噶是敬爱工啊搜集打工 撒大家给骄傲的施</div>
+<div class="mine">
+	<div class="minePic" style="background-image:url(<?php echo $user['avatar']?$user['avatar']:'__PUBLIC__/dist/assets/images/bg.png' ?>)"></div>
+	<div class="mineName">{$user.nickname}</div>
+	<div class="mineIntro">{$user.signature}</div>
+</div>
+<ul class="others">
+	<if condition="$num gt 0 ">
+		<li class="list">TA共收到<span>{$num}</span>个印象</li>
+		<else />
+		<li class="none">TA还未收到任何印象</li>
+	</if>
+	<volist name="data" id="vo">
+		<li class="other box" data-id="{$vo.impression_id}">
+			<div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div>
+			<div class="otherName">{$vo.nickname}</div>
+			<div class="othercom">{$vo.content}{$vo.value}</div>
 			<div class="tools">
-				<div class="tool toolDown iconfont">&#xe606;<span>7</span></div>
-				<div class="tool toolUp iconfont">&#xe603;<span>7</span></div>
+				<if condition="$vo['value'] heq 1">
+					<div class="tool toolDown iconfont">&#xe606;<span>{$vo.down}</span></div>
+					<div class="tool  toolUp toolFocus iconfont">&#xe603;<span>{$vo.praise}</span></div>
+					<elseif condition="$vo['value'] heq 0"/>
+					<div class="tool toolDown toolFocus iconfont">&#xe606;<span>{$vo.down}</span></div>
+					<div class="tool toolUp iconfont">&#xe603;<span>{$vo.praise}</span></div>
+					<else />
+					<div class="tool toolDown iconfont">&#xe606;<span>{$vo.down}</span></div>
+					<div class="tool toolUp iconfont">&#xe603;<span>{$vo.praise}</span></div>
+				</if>
 			</div>
 		</li>
-		<li class="other" data-id="id">
-			<div class="otherPic iconfont" style="background-image:url(dist/assets/images/logo.png)"></div>
-			<div class="otherName">匿名</div>
-			<div class="othercom">443jaijgiopawjg阿娇搜噶是敬爱工啊搜集打工 撒大家给骄傲的施</div>
-			<div class="tools">
-				<div class="tool toolDown iconfont">&#xe606;<span>7</span></div>
-				<div class="tool toolUp iconfont">&#xe603;<span>7</span></div>
-			</div>
-		</li>
-	</ul>
+	</volist>
+</ul>
 	<div class="share">
 		<div class="shareBg"></div>
 		<!-- 评论页面comment -->
@@ -45,8 +49,8 @@
 	<script src="dist/assets/js/zepto.min.js"></script>
 	<script>
 		var isWX = true,//是否关注 boolean
-			shareURL = '',
-			shareImg = '',
+			shareURL = "{:U('Index/share')}?uid={:I('get.uid')}",
+			shareImg = "{$user.avatar}",
 			postURL = '';//赞地址
 		$('.toolUp').on('touchend',function () {
             var that = $(this);
@@ -60,14 +64,16 @@
                         impression_id: id
                     },
                     success: function () {
+                        that.unbind('click');
                         that.addClass('toolFocus');
+                        that.removeClass('toolUp');
                     },
                     error: function () {
                         alert('发生错误');
                     }
                 });
             } else {
-                alert('您已经评价过了。');
+                alert('您已经踩过了，不能点赞！');
             }
             
         });
@@ -83,14 +89,16 @@
                         impression_id: id
                     },
                     success: function () {
+                        that.unbind('click');
                         that.addClass('toolFocus');
+                        that.removeClass('toolUp');
                     },
                     error: function () {
                         alert('发生错误');
                     }
                 });
             } else {
-                alert('您已经评价过了。');
+                alert('您已经赞过了，不能点踩！');
             }
         });
 
@@ -98,7 +106,7 @@
 		wx.config({
 		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 		    appId: '', // 必填，公众号的唯一标识
-		    timestamp: , // 必填，生成签名的时间戳
+		    timestamp: {:time()}, // 必填，生成签名的时间戳
 		    nonceStr: '', // 必填，生成签名的随机串
 		    signature: '',// 必填，签名，见附录1
 		    jsApiList: [

@@ -89,14 +89,15 @@ class IndexController extends Controller{
 
     //发表印象页面
     public function createImpressionView() {
-        $id = I('get.id');
+        $id = I('get.uid');
         if($id < 1) {
             $this->error('参数错误');
         }
         //获取openid
         $code = I('get.code');
         if($code == null){
-            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2fcquptluck%2fHome%2fIndex%2findex.html&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
+            $re_url = urlencode(U('Index/createImpressionView'));
+            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
         }else{
             session('code', $code);
             $return =  json_decode($this->getOpenId());
@@ -113,7 +114,7 @@ class IndexController extends Controller{
             if(!$this->checkAttention($access)) {
                 $this->error('请先关注小帮手~');
             }
-            session('openid');
+            session('openid', $openid);
         }
         session('to_id', $id);
     }
@@ -251,6 +252,50 @@ class IndexController extends Controller{
 
     //分享页面
     public function share(){
+        $code = I('get.code');
+        if($code == null){
+            $re_url = urlencode(U('Index/share'));
+            return redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=$this->appid&redirect_uri=http%3a%2f%2fhongyan.cqupt.edu.cn%2f$re_url&response_type=code&scope=snsapi_userinfo&state=sfasdfasdfefvee#wechat_redirect");//todo 回调域名
+        }else{
+            session('code', $code);
+            $return =  json_decode($this->getOpenId());
+            $openid = $return['data']['openid'];
+            if(!$openid) {
+                $this->error('身份认证失败!');
+            }
+            session('openid', $openid);
+        }
+        $uid = I('get.uid');
+        if(!$uid) {
+            $this->error('非法链接');
+        }
+        $impression = M('impression_user');
+        $openid = M('users')->where(array('id' => $uid))->getField('openid');
+        $map = array(
+            'to_openid' => $openid,
+            'status' => 1
+        );
+        $data = $impression->where($map)
+            ->join('join users on impression_user.from_openid = users.openid')
+            ->field('impression_user.id as impression_id, content, praise, down, nickname, avatar')
+            ->select();
+        foreach($data as &$value) {
+            $search = array(
+                'impression_id' =>  $value['impression_id'],
+                'openid' => session('openid')
+            );
+            if(M('user_praise')->where($search)->count()) {
+                $value['action'] = M('user_praise')->where($search)->buildSql();
+            } else {
+                $value['action'] = '';
+            }
+        }
+        $num = $impression->where($map)->count();
+        $user = M('users')->where(array('id' => $uid))->find();
+        $this->assign('data', $data);
+        $this->assign('num', $num);
+        $this->assign('user', $user);
+        $this->display('personal'); //todo
         $this->display('share');
     }
 
