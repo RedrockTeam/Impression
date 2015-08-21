@@ -22,14 +22,13 @@
             <li class="other box" data-id="{$vo.impression_id}">
                 <div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div>
                 <div class="otherName">{$vo.nickname}</div>
-                <div class="othercom">{$vo.content}{$vo.value}</div>
+                <div class="othercom">{$vo.content}</div>
                 <div class="tools">
-
-                    <if condition="$vo['value'] heq 1">
+                    <if condition="$vo['action'] eq 1">
                             <div class="tool toolDel iconfont">&#xe609;</div>
                             <div class="tool toolDown iconfont">&#xe606;<span>{$vo.down}</span></div>
                             <div class="tool  toolUp toolFocus iconfont">&#xe603;<span>{$vo.praise}</span></div>
-                        <elseif condition="$vo['value'] heq 0"/>
+                        <elseif condition="$vo['action'] eq 0"/>
                             <div class="tool toolDel iconfont">&#xe609;</div>
                             <div class="tool toolDown toolFocus iconfont">&#xe606;<span>{$vo.down}</span></div>
                             <div class="tool toolUp iconfont">&#xe603;<span>{$vo.praise}</span></div>

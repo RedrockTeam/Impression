@@ -74,9 +74,9 @@ class IndexController extends Controller{
                'openid' => session('openid')
            );
             if(M('user_praise')->where($search)->count()) {
-                $value['action'] = M('user_praise')->where($search)->buildSql();
+                $value['action'] = M('user_praise')->where($search)->getField('action');
             } else {
-                $value['action'] = '';
+                $value['action'] = 2;
             }
         }
         $num = $impression->where($map)->count();
@@ -168,17 +168,27 @@ class IndexController extends Controller{
     //点赞/踩
     public function action() {
         $input = I('post.');
-        if(!is_numeric($input['action']) || is_numeric($input['impression_id'])) {
+        if(!is_numeric($input['action']) || !is_numeric($input['impression_id'])) {
             $this->ajaxReturn(array(
                     'status' => 403,
                     'info' => '非法数据!'
             ));
         }
         $openid = session('openid');
-        if(M('impression_user')->where(array('id' => $input['impression_id']))->count()) {
+        if(!M('impression_user')->where(array('id' => $input['impression_id']))->count()) {
             $this->ajaxReturn(array(
                     'status' => 403,
                     'info' => '不存在此印象!'
+            ));
+        }
+        $search = array(
+            'openid' => $openid,
+            'impression_id' => $input['impression_id'],
+        );
+        if(M('user_praise')->where($search)->count()) {
+            $this->ajaxReturn(array(
+                'status' => 403,
+                'info' => '你已经评价过了'
             ));
         }
         $data = array(
