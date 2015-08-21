@@ -164,13 +164,13 @@ class IndexController extends Controller{
             ));
         }
         if($data['hide']>0) {
-            $to_openid = 'niming';
+            $from_openid = 'niming';
         } else {
-            $to_openid = M('users')->where(array('id' => $data['uid']))->getField('openid');
+            $from_openid = M('users')->where(array('id' => $data['uid']))->getField('openid');
         }
         $save = array(
-                'from_openid' => session('openid'),
-                'to_openid' => $to_openid,
+                'from_openid' => $from_openid,
+                'to_openid' => session('openid'),
                 'content' => $content,
                 'praise' => 0,
                 'down' => 0,
