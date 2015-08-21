@@ -66,10 +66,19 @@ class IndexController extends Controller{
         );
         $data = $impression->where($map)
                 ->join('join users on impression_user.from_openid = users.openid')
-                ->join('left join user_praise on impression_user.id = user_praise.impression_id')
-                ->where(array('user_praise.openid' => session('openid')))
                 ->field('impression_user.id as impression_id, content, praise, down, nickname, avatar')
                 ->select();
+        foreach($data as &$value) {
+           $search = array(
+               'impression' =>  $value['impression_id'],
+               'session' => session('openid')
+           );
+            if(M('user_praise')->where($search)->count()) {
+                $value['action'] = M('user_praise')->where($search)->getField('action');
+            } else {
+                $value['action'] = '';
+            }
+        }
         $num = $impression->where($map)->count();
         $user = M('users')->where(array('id' => $uid))->find();
         $this->assign('data', $data);

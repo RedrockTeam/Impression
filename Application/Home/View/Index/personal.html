@@ -14,19 +14,30 @@
     </div>
     <ul class="others">
         <if condition="$num gt 0 ">
-                <li class="list">我共收到<span>$num</span>个印象</li>
+                <li class="list">我共收到<span>{$num}</span>个印象</li>
             <else />
                 <li class="none">我还未收到任何印象</li>
         </if>
         <volist name="data" id="vo">
             <li class="other box" data-id="{$vo.impression_id}">
-                <div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'__PUBLIC__/dist/assets/images/bg.png' ?>)"></div>
+                <div class="otherPic iconfont" style="background-image:url(<?php echo $vo['avatar']?$vo['avatar']:'__PUBLIC__/dist/assets/images/hide.jpg' ?>)"></div>
                 <div class="otherName">{$vo.nickname}</div>
                 <div class="othercom">{$vo.content}</div>
                 <div class="tools">
-                    <div class="tool toolDel iconfont">&#xe609;</div>
-                    <div class="tool toolDown iconfont">&#xe606;<span>{$vo.praise}</span></div>
-                    <div class="tool toolFocus iconfont">&#xe603;<span>{$vo.down}</span></div>
+                    <if condition="$vo['value'] eq 1">
+                            <div class="tool toolDel iconfont">&#xe609;</div>
+                            <div class="tool toolDown iconfont">&#xe606;<span>{$vo.down}</span></div>
+                            <div class="tool  toolUp toolFocus iconfont">&#xe603;<span>{$vo.praise}</span></div>
+                        <elseif condition="$vo['value'] eq 0"/>
+                            <div class="tool toolDel iconfont">&#xe609;</div>
+                            <div class="tool toolDown toolFocus iconfont">&#xe606;<span>{$vo.down}</span></div>
+                            <div class="tool toolUp iconfont">&#xe603;<span>{$vo.praise}</span></div>
+                        <else />
+                            <div class="tool toolDel iconfont">&#xe609;</div>
+                            <div class="tool toolDown iconfont">&#xe606;<span>{$vo.down}</span></div>
+                            <div class="tool toolUp iconfont">&#xe603;<span>{$vo.praise}</span></div>
+                    </if>
+
                 </div>
             </li>
         </volist>
