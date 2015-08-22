@@ -52,7 +52,7 @@
     <script>
         var isWX = true,//是否关注 boolean
             shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:session('uid')}",
-            shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
+            shareImg = "<?php echo $user['avatar'] ? $user['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
             postURL = "{:U('Index/action')}", //赞接口
             delURL = "{:U('Index/delImpression')}"; //删除接口
         $('.toolDel').on('touchend',function () {
