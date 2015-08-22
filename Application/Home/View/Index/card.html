@@ -16,7 +16,7 @@
     <div id="shade"></div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
-        var isWX = <?php echo $care?'true':'false' ?>,//是否关注 boolean
+        var isWX = true,//是否关注 boolean
                 shareURL = "http://hongyan.cqupt.edu.cn{:U('Index/share')}?uid={:session('uid')}",
                 shareImg = "<?php echo $data['avatar'] ? $data['avatar'] : '__PUBLIC__/dist/assets/images/bg.png' ?>",
                 returnPage = "http://hongyan.cqupt.edu.cn{:U('Index/index')}";

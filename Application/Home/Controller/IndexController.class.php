@@ -320,6 +320,9 @@ class IndexController extends Controller{
         if(!$uid) {
             $this->error('非法链接');
         }
+        if($uid == session('uid')) {
+            return redirect("U('Index/viewImpression')");
+        }
         $impression = M('impression_user');
         $openid = M('users')->where(array('id' => $uid))->getField('openid');
         $map = array(
